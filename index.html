@@ -1,5 +1,187 @@
-<html>
-  <body>
-    <h1>ok</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
+		<title>glearn</title>
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/dataTables.bootstrap4.min.css">
+		<link rel="stylesheet" href="./css/select2.css">
+		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="./icon/icon.css">
+		<link rel="stylesheet" href="./css/w3.css">
+		<!-- <link rel="stylesheet" href="./cssPrint/style.css"> -->
+		<style media="screen">
+			td, th{
+				wrap-content: nowrap;
+			}
+			[btn-action]{
+				width: calc(50% - 5px);
+			}
+		</style>
+		<style>
+
+html, body{
+	overflow-x: hidden;
+}
+
+.loader {
+	display: inline-block;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader-wrapper{
+	position: absolute;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	display: none;
+	background: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	z-index: 9999;
+}
+
+.loader-wrapper .wrp{
+	width: 300px;
+	height: auto;
+	padding: 25px;
+	border-radius: 20px;
+	text-align: center;
+	background-color: rgba(255,255,255, .5);
+}
+
+</style>
+	</head>
+	<body class="bg-img-01">
+
+		<div id="main">
+
+		</div>
+		<div class="loader-wrapper">
+			<div class="wrp">
+				<div class="loader"></div>
+				<span style="display: block;">Please Wait !</span>
+			</div>
+		</div>
+		<script src="./require.js" charset="utf-8"></script>
+		<script src="./config.js" charset="utf-8"></script>
+		<script type="text/javascript">
+
+			require([
+				'sammy',
+				'page/dashboard',
+				'page/dashboardsiswa',
+				'page/guru/login',
+				'page/guru/daftar',
+				'page/siswa/daftarsiswa',
+				'page/ruangguru',
+				'page/guru/ruangkelas',
+				'page/guru/kelas',
+				'page/guru/soal',
+				'page/siswa/loginsiswa',
+				'page/siswa/pilihguru',
+				'page/siswa/kelasSiswa',
+				'page/siswa/kelasSiswaSoal',
+				'page/siswa/kelasSiswaSoalLatihan',
+				'page/guru/laporanHasilBelajar',
+				'page/guru/laporanNilaiSiswa',
+				'page/guru/laporanNilaiSiswaMapel',
+				'page/guru/laporanNilaiSiswaMapelSoal',
+				'action/click',
+				'action/firebaseAct'
+			], function(sammy, dashboard, dashboardsiswa, login, daftar, daftarsiswa, ruangguru, ruangkelas, kelas, soal, loginsiswa, pilihguru, kelasSiswa, kelasSiswaSoal, kelasSiswaSoalLatihan, laporanHasilBelajar, laporanNilaiSiswa
+				, laporanNilaiSiswaMapel, laporanNilaiSiswaMapelSoal){
+					var app = sammy(function() {
+						// master data release
+						this.get('#/', function() {
+							dashboard.view();
+						});
+						this.get('#/guru/login', function() {
+							login.view();
+						});
+						this.get('#/siswa/login', function() {
+							loginsiswa.view();
+						});
+						this.get('#/guru/daftar', function() {
+							daftar.view();
+						});
+
+						this.get('#/siswa/daftar', function() {
+							daftarsiswa.view();
+						});
+						this.get('#/ruang-guru', function() {
+							ruangguru.view();
+						});
+						this.get('#/ruang-guru/ruang-kelas', function() {
+							ruangkelas.view();
+						});
+						this.get('#/ruang-guru/kelas/:kelas', function() {
+							let id = this.params['kelas'];
+                            kelas.view(id);
+						});
+						this.get('#/ruang-guru/soal-latihan/:kelas/:soal', function() {
+							let a = this.params['kelas'];
+							let b = this.params['soal'];
+                            soal.view(a, b);
+						});
+						this.get('#/siswa/pilih-guru/', function() {
+							pilihguru.view();
+						});
+						this.get('#/siswa-kelas/:guru', function() {
+							let a = this.params['guru'];
+							kelasSiswa.view(a);
+						});
+						this.get('#/siswa-kelas-soal/:kelas', function() {
+							let a = this.params['kelas'];
+							kelasSiswaSoal.view(a);
+						});
+						this.get('#/siswa-kelas-latihan-soal/:soal', function() {
+							let a = this.params['soal'];
+							kelasSiswaSoalLatihan.view(a);
+						});
+						this.get('#/ruangSiswa/', function() {
+							dashboardsiswa.view();
+						});
+						this.get('#/ruang-guru/laporan-siswa', function() {
+							laporanHasilBelajar.view();
+						});
+						this.get('#/hasil-belajar-soal/:data', function() {
+							let a = this.params['data'];
+							laporanNilaiSiswa.view(a);
+						});
+						this.get('#/hasil-belajar-soal-mapel/:data/:key', function() {
+							let a = this.params['data'];
+							let b = this.params['key'];
+							laporanNilaiSiswaMapel.view(a, b);
+						});
+						this.get('#/hasil-belajar-soal-mapel-data/:data', function() {
+							let a = this.params['data'];
+							laporanNilaiSiswaMapelSoal.view(a);
+						});
+					});
+					app.run("#/");
+			});
+
+		</script>
+
+	</body>
 </html>
