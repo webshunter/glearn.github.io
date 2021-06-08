@@ -5,3 +5,5 @@ https://webshunter.github.io/glearn.github.io/
 ```
 # Autor
 Gugus Darmayanto
+# Dibuat pada
+08-06-2021 pukul 009.51
