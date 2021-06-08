@@ -3,5 +3,5 @@ website belajar online, dibangun menggunakan html5, sammyjs routing, firebase se
 ```
 https://webshunter.github.io/glearn.github.io/
 ```
-#autor
+# Autor
 Gugus Darmayanto
