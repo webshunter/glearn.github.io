@@ -16,7 +16,9 @@ define(['jquery', 'helper', 'frb', '@firebase/app', '@firebase/database'], funct
           let html = ``;
 
           let dataku = value.val();
-
+  
+          console.log(dataku)
+          
           let soalS = soal;
 
         if (Array.isArray(dataku)) {
